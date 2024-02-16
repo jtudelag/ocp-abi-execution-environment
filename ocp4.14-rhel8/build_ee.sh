@@ -20,7 +20,7 @@ OCP_PATCH=10
 COREOS_INSTALLER_VERSION="0.17.0-3"
 BUTANE_VERSION="0.19.0"
 #Used for RPMs repos.
-RHEL_VERSION="9"
+RHEL_VERSION="8"
 
 # Constants, dont change!!!
 OCP_XY="${OCP_MAJOR}.${OCP_MINOR}"
@@ -88,7 +88,7 @@ build () {
 
   #Build it
   ansible-builder build -v 3 \
-   --build-arg EE_BASE_IMAGE="registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel${RHEL_VERSION}:latest" \
+   --build-arg EE_BASE_IMAGE="registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel8:latest" \
    --build-arg "RHEL_VERSION=$RHEL_VERSION" \
    --build-arg "OCP_XY=$OCP_XY" \
    --build-arg "OCP_XYZ=$OCP_XYZ" \
@@ -96,7 +96,7 @@ build () {
    --build-arg "BUTANE_VERSION=$BUTANE_VERSION" \
    --prune-images \
    --squash all \
-   --tag "${EE_IMAGE_NAME}:${OCP_XYZ}"
+   --tag "${EE_IMAGE_NAME}:${OCP_XYZ}-rhel${RHEL_VERSION}"
 }
 
 all () {
